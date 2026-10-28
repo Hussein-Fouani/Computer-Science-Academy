@@ -39,6 +39,7 @@ namespace DekstopApp
             if (this.textBox1.Text.Length == 0 || this.textBox2.Text.Length == 0)
             {
                 MessageBox.Show("Empty  Credential Detected!! ");
+                return;
             }
             string usr_name = textBox1.Text.ToString();
             string usr_passwd = textBox2.Text.ToString();

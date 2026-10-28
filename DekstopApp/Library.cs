@@ -55,10 +55,10 @@ namespace DekstopApp
                     string branch = comboBox1.SelectedItem.ToString();
 
                     sqlconnection.Open();
-                    string query = "Insert into UserInfo(Branch,Book_Name,Subject,Author,Price,quantity publisher,Branch) values('" + isbn + "','" + bkname + "','" + subject + "','" + author + "','" + pricee + "','" + quantity + "','" + publisher + "','" + Branch + "')";
+                    string query = "Insert into BookInfo(ISBN,Book_Name,Subject,Author,Price,quantity,publisher,Branch) values('" + isbn + "','" + bkname + "','" + subject + "','" + author + "','" + pricee + "','" + quantity + "','" + publisher + "','" + branch + "')";
                     SqlCommand command = new SqlCommand(query, sqlconnection);
                     int i = command.ExecuteNonQuery();
-                    if (i > 1)
+                    if (i > 0)
                     {
                         MessageBox.Show(i + "Number of User Inserte Books " + bkname);
                     }
@@ -100,16 +100,16 @@ namespace DekstopApp
             foreach (DataRow item in dataTable.Rows)
             {
                 int n = dataGridView1.Rows.Add();
-                dataGridView1.Rows[n].Cells[0].Value = item.ToString();
-                dataGridView1.Rows[n].Cells[1].Value = item.ToString();
-                dataGridView1.Rows[n].Cells[2].Value = item.ToString();
-                dataGridView1.Rows[n].Cells[3].Value = item.ToString();
-                dataGridView1.Rows[n].Cells[4].Value = item.ToString();
-                dataGridView1.Rows[n].Cells[5].Value = item.ToString();
-                dataGridView1.Rows[n].Cells[6].Value = item.ToString();
-                dataGridView1.Rows[n].Cells[7].Value = item.ToString();
-                sqlconnection.Close();
+                dataGridView1.Rows[n].Cells[0].Value = item[0].ToString();
+                dataGridView1.Rows[n].Cells[1].Value = item[1].ToString();
+                dataGridView1.Rows[n].Cells[2].Value = item[2].ToString();
+                dataGridView1.Rows[n].Cells[3].Value = item[3].ToString();
+                dataGridView1.Rows[n].Cells[4].Value = item[4].ToString();
+                dataGridView1.Rows[n].Cells[5].Value = item[5].ToString();
+                dataGridView1.Rows[n].Cells[6].Value = item[6].ToString();
+                dataGridView1.Rows[n].Cells[7].Value = item[7].ToString();
             }
+            sqlconnection.Close();
 
         }
 
@@ -144,10 +144,10 @@ namespace DekstopApp
                     string branch = comboBox1.SelectedItem.ToString();
 
                     sqlconnection.Open();
-                    string query = "update BookInfo set ISBN='" + isbn + "', Book_Name='" + bkname + "', Subject='" + subject + "', Author='" + author + "', Price='" + pricee + "', quantity='" + quantity + "', publisher='" + publisher + "', Branch= +branch";
+                    string query = "update BookInfo set ISBN='" + isbn + "', Book_Name='" + bkname + "', Subject='" + subject + "', Author='" + author + "', Price='" + pricee + "', quantity='" + quantity + "', publisher='" + publisher + "', Branch='" + branch + "' where ISBN='" + isbn + "'";
                     SqlCommand command = new SqlCommand(query, sqlconnection);
                     int i = command.ExecuteNonQuery();
-                    if (i > 1)
+                    if (i > 0)
                     {
                         MessageBox.Show(i + "Number of User Updated " + bkname);
                     }
@@ -190,10 +190,10 @@ namespace DekstopApp
 
 
                     sqlconnection.Open();
-                    string query = "delete from BookInfo where ISBN= '" + isbn;
+                    string query = "delete from BookInfo where ISBN= '" + isbn + "'";
                     SqlCommand command = new SqlCommand(query, sqlconnection);
                     int i = command.ExecuteNonQuery();
-                    if (i > 1)
+                    if (i > 0)
                     {
                         MessageBox.Show(i + "Number of User Deleted Books " + isbn);
                     }
@@ -228,21 +228,21 @@ namespace DekstopApp
         {
             try {
                 sqlconnection.Open();
-                SqlDataAdapter sqlData = new SqlDataAdapter("select * from BookInfo where (Book_Name like '%" + textBox8.Text + "%' or Subject like '%" + textBox8.Text + "%' or like Auhtor '%" + textBox8.Text+"')",sqlconnection);
+                SqlDataAdapter sqlData = new SqlDataAdapter("select * from BookInfo where (Book_Name like '%" + textBox8.Text + "%' or Subject like '%" + textBox8.Text + "%' or Author like '%" + textBox8.Text+"%')",sqlconnection);
                 DataTable table = new DataTable();
                 sqlData.Fill(table);
                 dataGridView1.Rows.Clear();
                 foreach (DataRow item in table.Rows)
                 {
                     int n = dataGridView1.Rows.Add();
-                    dataGridView1.Rows[n].Cells[0].Value = item.ToString();
-                    dataGridView1.Rows[n].Cells[1].Value = item.ToString();
-                    dataGridView1.Rows[n].Cells[2].Value = item.ToString();
-                    dataGridView1.Rows[n].Cells[3].Value = item.ToString();
-                    dataGridView1.Rows[n].Cells[4].Value = item.ToString();
-                    dataGridView1.Rows[n].Cells[5].Value = item.ToString();
-                    dataGridView1.Rows[n].Cells[6].Value = item.ToString();
-                    dataGridView1.Rows[n].Cells[7].Value = item.ToString();
+                    dataGridView1.Rows[n].Cells[0].Value = item[0].ToString();
+                    dataGridView1.Rows[n].Cells[1].Value = item[1].ToString();
+                    dataGridView1.Rows[n].Cells[2].Value = item[2].ToString();
+                    dataGridView1.Rows[n].Cells[3].Value = item[3].ToString();
+                    dataGridView1.Rows[n].Cells[4].Value = item[4].ToString();
+                    dataGridView1.Rows[n].Cells[5].Value = item[5].ToString();
+                    dataGridView1.Rows[n].Cells[6].Value = item[6].ToString();
+                    dataGridView1.Rows[n].Cells[7].Value = item[7].ToString();
                     
                 }
                 sqlconnection.Close();
